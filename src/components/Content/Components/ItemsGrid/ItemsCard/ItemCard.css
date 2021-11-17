@@ -1,0 +1,53 @@
+.content__grid-item {
+  padding: 15px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: all .2s ease-in-out;
+}
+
+.content__grid-item__photo {
+  background-size: contain;
+  max-height: 330px;
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.content__grid-item__cart {
+  position: absolute;
+  left: 70%;
+  bottom: 10%;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+}
+
+.content__grid-item__name,
+.content__grid-item__price {
+  line-height: 28px;
+}
+
+.content__grid-item:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+.content__grid-item:hover .content__grid-item__cart {
+  opacity: 1;
+}
+
+.content__grid-item__out {
+  opacity: 0.5;
+}
+
+.content__grid-item__out::before {
+  content: 'OUT OF STOCK';
+  max-width: 121px;
+  position: absolute;
+  left: 50%;
+  margin-left: -58px;
+  top: 30%;
+  font-weight: bolder;
+}

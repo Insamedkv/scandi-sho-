@@ -1,0 +1,12 @@
+.content__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 40px;
+  row-gap: 40px;
+}
+
+@media ( width <= 750px) {
+  .content__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

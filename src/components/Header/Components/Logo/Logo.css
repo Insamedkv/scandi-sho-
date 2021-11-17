@@ -1,0 +1,4 @@
+.header__logo {
+  position: absolute;
+  left: calc(50vw - 20px);
+}

@@ -1,0 +1,17 @@
+.header__categories-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  font-size: 16px;
+  margin-right: 10px;
+  padding-bottom: 30px;
+}
+
+.underline {
+  border-bottom: 2px solid #5ECE7B;
+  color: #5ECE7B;
+}
+
+.header__categories-link:last-child {
+  margin-right: 0;
+}

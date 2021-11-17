@@ -1,0 +1,55 @@
+.header__payment {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__payment-list-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.header__payment-selected {
+  width: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header__payment-arrow {
+  border: solid black;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+}
+
+.rotate-arrow {
+  transform: rotate(225deg);
+}
+
+.header__payment-list {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+  margin: 0;
+  width: 50px;
+  padding: 5px 15px;
+}
+
+.header__payment-list-element {
+  cursor: pointer;
+}
+
+.show-list {
+  position: absolute;
+  display: block;
+}
+
+.hide-list {
+  display: none !important;
+}
+
+li {
+  list-style-type: none;
+}
