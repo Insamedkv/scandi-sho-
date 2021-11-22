@@ -4,6 +4,7 @@
 }
 
 .header__count {
+  display: flex;
   position: absolute;
   left: 16px;
   bottom: 16px;
@@ -15,6 +16,10 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+
+.header__count-none {
+  display: none;
 }
 
 .header__cart-list-container {
@@ -30,7 +35,12 @@
   margin-right: 10px;
 }
 
+.header__cart-list-container-none {
+  display: none;
+}
+
 .header__cart-list__params {
+  display: block;
   margin-bottom: 5px;
   cursor: pointer;
   border: 1px solid #000;
@@ -70,6 +80,10 @@
   z-index: 1;
 }
 
+.show-bag-list {
+  width: 100%;
+}
+
 .header__cart-container__overlay {
   height: calc(100vh - 82px);
   width: 100vw;
@@ -103,6 +117,12 @@
 .header__cart-list__amount__preview {
   display: flex;
   height: 12vh;
+  margin-left: 10px;
+}
+
+.bag__cart-list__amount__preview {
+  display: flex;
+  height: 16vh;
   margin-left: 10px;
 }
 

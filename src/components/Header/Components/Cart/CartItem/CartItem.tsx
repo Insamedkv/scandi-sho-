@@ -13,7 +13,7 @@ class CartItem extends React.Component<CartItemProps, CartItemState > {
     super(props);
 
     this.state = {
-      initialDescription: this.props.oneCategoryItems[0],
+      initialDescription: this.props.categoryItem,
       symbol: '',
       amount: 0,
       initCurrency: '',
@@ -74,6 +74,12 @@ class CartItem extends React.Component<CartItemProps, CartItemState > {
   }
 
   componentDidUpdate() {
+    if (this.state.initialChoosenElementIndex === -1) {
+      this.setState({
+        initialChoosenElementIndex: 0,
+      });
+    }
+
     if (this.state.initCurrency !== this.props.currency) {
       this.setDisplayingCurrency();
     }
@@ -81,19 +87,22 @@ class CartItem extends React.Component<CartItemProps, CartItemState > {
 
   render(): JSX.Element {
     const { initialDescription } = this.state;
-    const itemsInCategory = this.props.oneCategoryItems.reduce((sum, current) => sum + (current.amount)!, 0);
+    const itemsInCategory = this.props.categoryItem.amount;
+    const photosAmount = this.state.initialDescription.gallery.length;
     let itemIds = {};
-    if (this.props.oneCategoryItems[this.state.initialChoosenElementIndex] !== undefined) {
+    if (this.props.categoryItem !== undefined) {
       itemIds = {
-        itemsIds: this.props.oneCategoryItems[this.state.initialChoosenElementIndex].itemIds,
+        itemsIds: this.props.categoryItem.itemIds,
         productId: initialDescription.id,
       };
     }
-    return (this.props.oneCategoryItems[this.state.initialChoosenElementIndex] || null) && (
+    return (this.props.categoryItem || null) && (
       <>
         <div
-          className={`${itemsInCategory > 0 ? 'show-cart-list' : 'hide-list'}`}
-          style={{ width: `${window.location.hash === '#/bag' ? '100%' : ''}` }}
+          className={`
+            ${itemsInCategory! > 0 ? 'show-cart-list' : 'hide-list'}
+            ${window.location.hash === '#/bag' ? 'show-bag-list' : ''}
+          `}
         >
           <div className='header__cart-description'>
             <div className='header__cart-list__brand'>{initialDescription.brand}</div>
@@ -101,42 +110,43 @@ class CartItem extends React.Component<CartItemProps, CartItemState > {
             <div className='header__cart-list__name'>{initialDescription.name}</div>
 
             <div className='header__cart-list__price'>
-              {this.state.symbol} {(this.state.amount * itemsInCategory).toFixed(2)}
+              {this.state.symbol} {(this.state.amount).toFixed(2)}
             </div>
 
-            {this.props.oneCategoryItems.map((item, index) => (
-              <div key={item.itemIds?.join()}
-                className={`header__cart-list__params ${index === this.state.initialChoosenElementIndex ? 'attribute__value-choosen' : ''}`}
-                style={{
-                  display: `${item.attributes.length > 0 ? 'block' : 'none'}`,
-                }}
-                onClick={() => this.setChoosenParams(index)}>
-                <ChoosenParamsList attributes={item.attributes} />
-              </div>))}
+            
+              <div key={this.props.categoryItem.itemIds?.join()}
+                className={`${this.props.categoryItem.attributes.length > 0 ? 'header__cart-list__params' : ''}`}>
+                <ChoosenParamsList attributes={this.props.categoryItem.attributes} />
+              </div>
           </div>
-          <div className='header__cart-list__amount__preview'
-            style={{ height: `${window.location.hash === '#/bag' ? '16vh' : ''}` }}
-          >
+          <div className={`${window.location.hash === '#/bag' ? 'bag__cart-list__amount__preview' : 'header__cart-list__amount__preview'}`}>
             <div className='header__cart-list__amount'>
               <button className='header__cart-list__amount-control'
-                onClick={() => this.props.addProduct(this.props.oneCategoryItems[this.state.initialChoosenElementIndex])}>
+                onClick={() => this.props.addProduct(this.props.categoryItem)}>
                 +
               </button>
 
               <div className='header__cart-list__amount-value'>
-                {this.props.oneCategoryItems[this.state.initialChoosenElementIndex].amount}
+                {this.props.categoryItem.amount}
               </div>
 
               <button className='header__cart-list__amount-control'
-                onClick={() => this.props.removeProduct(itemIds as RemoveProduct)}>
+                onClick={() => {
+                  this.props.removeProduct(itemIds as RemoveProduct)
+                  if (this.props.categoryItem.amount === 1) {
+                    this.setState((prevState) => ({
+                      initialChoosenElementIndex: prevState.initialChoosenElementIndex - 1,
+                    }))
+                  }
+                }}>
                 -
               </button>
             </div>
             <Link to={`/${initialDescription.category}/${initialDescription.id}`} className='header__cart__product__preview-wrapper'>
               <div className='header__cart__product__preview-little'>
                 <div
-                  className='header__cart__product__preview_arrows'
-                  style={{ display: `${window.location.hash === '#/bag' ? 'flex' : 'none'}` }}
+                  className={`header__cart__product__preview_arrows 
+                  ${photosAmount === 1 ? 'header__cart__product__preview_arrows-hide' : ''}`}
                 >
                   <img className='product__preview-little__left'
                     src={arrow}
@@ -159,8 +169,8 @@ class CartItem extends React.Component<CartItemProps, CartItemState > {
                 </div>
                 <img
                   alt='little-preview'
-                  className='product__preview-little__image' src={this.props.oneCategoryItems[0].gallery[this.state.pictureNumber]}
-                  style={{ height: `${window.location.hash === '#/bag' ? 'inherit' : ''}` }}
+                  className={`${window.location.hash === '#/bag' ? 'product__preview__bag-little__image' : 'product__preview-little__image'}`}
+                  src={this.props.categoryItem.gallery[this.state.pictureNumber]}
                 />
               </div>
             </Link>

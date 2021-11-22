@@ -31,7 +31,7 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
   render(): JSX.Element {
     return (this.state?.gallery || null) && (
       <div className='product__page-grid'>
-        <ProductPreview gallery={this.state.gallery}/>
+        <ProductPreview gallery={this.state.gallery} inStock={this.state.product.inStock}/>
         <ProductDescription values={this.state.product} key={this.state.product.id}/>
       </div>
     );

@@ -70,20 +70,20 @@ class ProductDescription extends React.Component<ProductDescriptionProps, Produc
       <div className='product__page-description'>
         <div className='product__page-description-brand'>{this.props.values.brand}</div>
         <div className='product__page-description-name'>{this.props.values.name}</div>
+        {this.props.values.attributes.length > 0
+          ? this.props.values.attributes.map(
+            (attribute) => <ProductParameter attributes={attribute} chooseAttributes={this.setProductAttributes} key={attribute.id}/>,
+          )
+          : ''}
         {this.props.values.inStock
           ? <>
-            {this.props.values.attributes.length > 0
-              ? this.props.values.attributes.map(
-                (attribute) => <ProductParameter attributes={attribute} chooseAttributes={this.setProductAttributes} key={attribute.id}/>,
-              )
-              : ''}
             <div className='product__page-description-attribute__name'>Price:</div>
             <div className='product__page-description-price'>{this.state.symbol}{this.state.amount}</div>
             <button className='product__page-to-cart' onClick={() => this.props.addProduct(this.state.productParams)}>ADD TO CART</button>
-            <div className='product__page-description-text'>{parse(this.props.values.description)}</div>
           </>
           : ''
         }
+        <div className='product__page-description-text'>{parse(this.props.values.description)}</div>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import { CartValues } from '../../../../../store/slice/cartSlice';
 import { AddProductFunc, RemoveProductFunc } from '../../../../../utility/generalInterfaces';
 
 export interface CartItemProps {
-  oneCategoryItems: CartValues[]
+  categoryItem: CartValues,
   currency?: string,
   addProduct: AddProductFunc,
   removeProduct: RemoveProductFunc,

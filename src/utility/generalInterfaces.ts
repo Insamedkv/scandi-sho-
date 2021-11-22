@@ -62,8 +62,6 @@ export interface AttributesItems {
   id: string,
 }
 
-//
-
 export interface RemoveProduct {
   itemsIds: string[],
   productId: string,

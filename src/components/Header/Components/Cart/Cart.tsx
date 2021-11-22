@@ -84,19 +84,21 @@ class Cart extends React.Component<CartProps, CartState> {
     return (
       <div className='header__cart-container'>
         <div className='header__cart' onClick={this.showCart}>
-          <div className='header__count' style={{ display: `${cart.length > 0 ? 'flex' : 'none'}` }}>{resAmount}</div>
+          <div className={`header__count ${cart.length === 0 ? 'header__count-none' : ''}`}>{resAmount}</div>
           <img src={cartIcon} alt='cart'/>
         </div>
         <div className={`header__cart-container__overlay ${this.state.isOpen && resAmount > 0 ? 'show-cart-list' : 'hide-list'}`} >
-          <div className='header__cart-list-container'
-            style={{ display: `${cart.length > 0 ? 'flex' : 'none'}` }}
+          <div className={`header__cart-list-container ${cart.length === 0 ? 'header__cart-list-container' : ''}`}
             ref={this.wrapperRef}>
             <span className='header__cart-list-bag'>{`My bag, ${resAmount} items`}</span>
             <div className='header__cart-list-item'>
-              {this.state.itemsIds.map((id) => {
+              {cart.map((item) => {
+                return <CartItem categoryItem={item} key={item.itemIds?.join()}/>;
+              })}
+              {/* {this.state.itemsIds.map((id) => {
                 const oneCategoryItems = cart.filter((item) => item.id === id);
                 return <CartItem oneCategoryItems={oneCategoryItems} key={id}/>;
-              })}
+              })} */}
             </div>
             <div className='header__cart-list-total'>
               <div className='header__cart-list-total__text'>Total</div>

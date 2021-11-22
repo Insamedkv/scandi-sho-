@@ -48,9 +48,8 @@ class Bag extends React.Component< BagProps, BagState> {
     const { cart } = this.props;
     return (
       <>
-        {this.state.itemsIds.map((id) => {
-          const oneCategoryItems = cart.filter((item) => item.id === id);
-          return <CartItem oneCategoryItems={oneCategoryItems} key={id}/>;
+        {cart.map((item) => {
+          return <CartItem categoryItem={item} key={item.itemIds?.join()}/>;
         })}
       </>
     );

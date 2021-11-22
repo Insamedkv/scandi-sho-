@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CategoryStore, ProductPrices } from '../../../../../utility/generalInterfaces';
+import { CategoryStore, Product, ProductPrices } from '../../../../../utility/generalInterfaces';
 import buyCart from '../../../../../assets/a-buy.svg';
 import currenciesSymbols from '../../../../../utility/currencies';
 import { ItemCardProps, ItemCardState } from './interface';
 import './ItemCard.css';
+import { getCategoryItemById } from '../../../../../utility/queries/queries';
+import { client } from '../../../../..';
+import { addProduct } from '../../../../../store/slice/cartSlice';
 
 class ItemCard extends React.Component<ItemCardProps, ItemCardState> {
   constructor(props: ItemCardProps) {
@@ -32,6 +35,12 @@ class ItemCard extends React.Component<ItemCardProps, ItemCardState> {
 
   componentDidMount() {
     this.setDisplayingCurrency();
+    const itemQuery = getCategoryItemById(this.props.product.id);
+    client.query(itemQuery).then((res: Product) => {
+      this.setState({
+        buyFromMain: res.data.product,
+      });
+    });
   }
 
   componentDidUpdate() {
@@ -47,12 +56,21 @@ class ItemCard extends React.Component<ItemCardProps, ItemCardState> {
             <img src={this.props.product.gallery[0]}
               className='content__grid-item__photo'
               alt={this.props.product.name} />
-            {this.props.product.inStock ? <img src={buyCart} className='content__grid-item__cart' alt='cart'/> : ''}
-            <div className='content__grid-item__name'>{this.props.product.name}</div>
+            {this.props.product.inStock ?
+              <img src={buyCart}
+                className='content__grid-item__cart'
+                alt='cart'
+                onClick={(e) => {
+                  this.props.addProduct!(this.state.buyFromMain!);
+                  e.preventDefault();
+                }}
+              />
+              : ''
+            }
+            <div className='content__grid-item__name'>{this.props.product.brand} {this.props.product.name}</div>
             <div className='content__grid-item__price'>{this.state.symbol} {this.state.amount}</div>
           </div>
       </Link>
-
     );
   }
 }
@@ -62,4 +80,6 @@ const mapStateToProps = (state: CategoryStore) => ({
   category: state.category.value,
 });
 
-export default connect(mapStateToProps)(ItemCard);
+const mapDispatchToProps = { addProduct };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemCard);

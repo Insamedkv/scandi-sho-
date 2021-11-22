@@ -6,7 +6,7 @@ export interface CategoryStoreState {
 }
 
 const initialState: CategoryStoreState = {
-  value: 'clothes',
+  value: 'all',
   currency: 'USD',
 };
 

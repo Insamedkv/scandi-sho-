@@ -23,7 +23,7 @@ export class ProductPreview extends React.Component<ProductPreviewProps, Product
 
   render(): JSX.Element {
     return (
-      <div className='product__preview'>
+      <div className={`product__preview ${this.props.inStock ? '' : 'product__preview-out'}`}>
         <LittlePreviews gallery={this.props.gallery} switchProductPreview={this.switchProductPreview}/>
         <MainPreview mainPreview={this.state.currentMainPicture} />
       </div>

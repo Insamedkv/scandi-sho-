@@ -12,6 +12,6 @@ interface CategoriesData {
   categories: CategoryName[],
 }
 
-interface CategoryName {
+export interface CategoryName {
   name: string,
 }

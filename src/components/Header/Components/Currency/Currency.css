@@ -33,12 +33,19 @@
 .header__payment-list {
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
   margin: 0;
-  width: 50px;
-  padding: 5px 15px;
 }
 
 .header__payment-list-element {
+  display: flex;
+  height: 30px;
+  width: 50px;
+  padding: 0 15px;
+  align-items: center;
   cursor: pointer;
+}
+
+.header__payment-list-element:hover {
+  background-color: #8D8F9A;
 }
 
 .show-list {

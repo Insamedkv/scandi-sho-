@@ -28,6 +28,7 @@
 .content__grid-item__name,
 .content__grid-item__price {
   line-height: 28px;
+  white-space: nowrap;
 }
 
 .content__grid-item:hover {

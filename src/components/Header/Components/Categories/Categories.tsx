@@ -32,6 +32,12 @@ class Categories extends React.Component<CategoriesProps, CategoriesState> {
   render(): JSX.Element {
     return (
       <nav className='header__categories'>
+        <Link to={`/all`}
+            key={'all'}
+            onClick={() => this.props.changeCategory('all')}
+            className={`header__categories-link ${this.props.category === 'all' ? 'underline' : ''}`}>
+            {'ALL'}
+          </Link>
         {this.state.data.categories.map((el) => (
           <Link to={`/${el.name}`}
             key={el.name}

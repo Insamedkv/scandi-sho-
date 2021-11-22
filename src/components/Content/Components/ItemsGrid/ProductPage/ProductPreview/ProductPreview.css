@@ -1,6 +1,22 @@
 .product__preview {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  position: relative;
+  height: fit-content;
+}
+
+.product__preview-out {
+  opacity: 0.5;
+}
+
+.product__preview-out::before {
+  content: 'OUT OF STOCK';
+  max-width: 121px;
+  position: absolute;
+  left: 50%;
+  margin-left: -58px;
+  top: 40%;
+  font-weight: bolder;
 }
 
 .product__preview-little {
@@ -14,11 +30,24 @@
   cursor: pointer;
 }
 
+.product__preview__bag-little__image {
+  width: inherit;
+  height: inherit;
+  object-fit: contain;
+  height: 12vh;
+  cursor: pointer;
+}
+
 .header__cart__product__preview_arrows {
+  display: flex;
   position: absolute;
   width: inherit;
   justify-content: space-between;
   top: calc(50% - 10px);
+}
+
+.header__cart__product__preview_arrows-hide {
+  display: none;
 }
 
 .product__preview-little__right {
